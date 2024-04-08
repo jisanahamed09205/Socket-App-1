@@ -8,8 +8,10 @@
 <body>
     <!-- <h1 id="myTime"></h1> -->
 
-        <input type="text" id="name">
-        <button onclick="send()" id="send">Send</button>
+        <!-- <input type="text" id="name">
+        <button onclick="send()" id="send">Send</button> -->
+
+        <h1 id="msg"></h1>
 
 
 
@@ -29,11 +31,27 @@
         
         //client side to server side data show
 
-        let socket = io();
-        function send(){
-            let name = document.getElementById("name").value;
-            socket.send(name)
-        }
+        // let socket = io();
+        // function send(){
+        //     let name = document.getElementById("name").value;
+        //     socket.emit("MyEvent",name)
+        // }
+
+        // Broadcasting
+
+        //this connection for all client
+
+        // let socket = io();
+        // socket.on("MyBroadcast", function(data){
+        //     document.getElementById("msg").innerHTML=data;
+        // })
+
+        //specific namespace connection
+
+        let socket = io("/buy");
+        socket.on("MyBroadcast", function(data){
+            document.getElementById("msg").innerHTML=data;
+        })
     </script>
 
 </body>

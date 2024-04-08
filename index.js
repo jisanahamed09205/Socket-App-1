@@ -7,8 +7,8 @@ const expressServer = http.createServer(app);
 const {Server} = require("socket.io");
 const io = new Server(expressServer);
 
-io.on('connection',function (socket){
-    console.log("New user connected")
+// io.on('connection',function (socket){
+//     console.log("New user connected")
     
 
     //server side to client side data show
@@ -27,14 +27,37 @@ io.on('connection',function (socket){
 
     //client side to server side data show
 
-    socket.on("message",function(msg){
-        console.log(msg);
-    })
+//     socket.on("MyEvent",function(msg){
+//         console.log(msg);
+//     })
 
-    socket.on('disconnect', function (){
-        console.log("User Disconnected")
-    })
+//     socket.on('disconnect', function (){
+//         console.log("User Disconnected")
+//     })
+// })
+
+// Broadcasting
+
+//this connection for all client
+
+// io.on("connection", function (socket){
+//     io.sockets.emit("MyBroadcast", "Hello Everyone")
+// })
+
+//specific namespace connection
+
+let buyNsp = io.of();
+buyNsp.on("connection", function (socket){
+    buyNsp.emit("MyBroadcast", "Hello buy")
 })
+
+
+let sellNsp = io.of('/sell');
+sellNsp.on("connection", function (socket){
+    sellNsp.emit("MyBroadcast", "Hello sell")
+})
+
+
 
 app.get('/', function(req,res){
     res.sendFile(__dirname+"/index.html")
