@@ -11,6 +11,9 @@
         <!-- <input type="text" id="name">
         <button onclick="send()" id="send">Send</button> -->
 
+        <!-- <h1 id="msg"></h1> -->
+
+        <!-- Rooms -->
         <h1 id="msg"></h1>
 
 
@@ -48,9 +51,16 @@
 
         //specific namespace connection
 
-        let socket = io("/buy");
-        socket.on("MyBroadcast", function(data){
-            document.getElementById("msg").innerHTML=data;
+        // let socket = io("/buy");
+        // socket.on("MyBroadcast", function(data){
+        //     document.getElementById("msg").innerHTML=data;
+        // })
+
+        // Rooms
+
+        let socket = io();
+        socket.on('cooking',function (data) {
+            document.getElementById('msg').innerHTML=data;
         })
     </script>
 
